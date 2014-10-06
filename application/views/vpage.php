@@ -29,8 +29,14 @@
 
 	$(".right_menu").on("hover", ".skill_span",function(){
 		id = $(this).data("id");
+		elem = $(".skill_exp[data-id='"+id+"']");
+		current = elem.css("display");
 
-		$(".skill_exp[data-id='"+id+"']").css("display","block");
+		if(current == "none"){
+			elem.css("display","block");
+		} else {
+			elem.css("display","none");
+		}
 	});
 
 	$(".main_menu").on("click", ".action_option", function(){
