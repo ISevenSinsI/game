@@ -4,6 +4,8 @@ function go_to_location(player_id, location_from_id, location_to_id){
 		location_from_id: location_from_id,
 		location_to_id: location_to_id
 	},function(data){
+		console.log(data);
+
 		data = jQuery.parseJSON(data);
 		timer = parseFloat(data.timer);
 
@@ -57,7 +59,7 @@ function check_action_end(player_id){
 	$.post("ajax/check_action_end",{
 	      	player_id: player_id
 	  	},function(data){   
-
+	  		
   		}
   	);
 }

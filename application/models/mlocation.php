@@ -1,6 +1,13 @@
 <?php
 class MLocation extends CI_Model
 {
+	function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+        $this->load->model("mskill");
+    }
+
 	public function get($player_id, $location_id){
 		$location = new Location($location_id);
 		$data = array();
@@ -37,6 +44,8 @@ class MLocation extends CI_Model
 			$data[$location_to->id]["name"] = $location_to->name;
 			$data[$location_to->id]["exp"] = $_scheme->exp;
 			$data[$location_to->id]["timer"] = $this->mspeed->calculate_travel_time($player_id, $location_id, $location_to->id);
+
+			$timer = $data[$location_to->id]["timer"];
 		} 	
 		
 		if(!isSet($travel_scheme->id)){
@@ -49,8 +58,10 @@ class MLocation extends CI_Model
 				$data[$location_to->id]["name"] = $location_to->name;
 				$data[$location_to->id]["exp"] = $_scheme->exp;
 				$data[$location_to->id]["timer"] = $this->mspeed->calculate_travel_time($player_id, $location_id, $location_to->id); 		
+				$timer = $data[$location_to->id]["timer"];
 			}
 		}
+
 
 		return $data;
 	}

@@ -21,12 +21,13 @@ class MPlayer extends CI_Model{
 		$action_end = $player->action_end;
 		$current_time = time(date("Y-m-d"));
 
-		if($action_end <= $current_time){
+		if($action_end <= $current_time)
+		{
 			$player->action_end = 0;
 			$player->save();
 			return 1;
 		} else {
-			return 0;asdasd
+			return 0;
 		}
 	}
 
