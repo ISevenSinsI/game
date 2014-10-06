@@ -140,11 +140,12 @@ body{
 	margin-bottom: 0%;
 }
 .skill_span{
-	cursor: pointer;
+	cursor: pointer;	
 }
+
 .skill_exp{
 	padding-left: 15px;
-	display: none;
+		display: none;
 }
 
 /**********************/

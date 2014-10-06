@@ -27,10 +27,10 @@
 <script>
 	one_time = false;
 
-	$(".right_menu").on("click", ".skill_span",function(){
+	$(".right_menu").on("hover", ".skill_span",function(){
 		id = $(this).data("id");
 
-		$(".skill_exp[data-id='"+id+"']").toggle();
+		$(".skill_exp[data-id='"+id+"']").css("display","block");
 	});
 
 	$(".main_menu").on("click", ".action_option", function(){
