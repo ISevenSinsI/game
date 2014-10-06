@@ -62,7 +62,6 @@ class MLocation extends CI_Model
 			}
 		}
 
-
 		return $data;
 	}
 
@@ -71,8 +70,8 @@ class MLocation extends CI_Model
 
 		$timer = $this->mspeed->calculate_travel_time($player_id, $location_from_id, $location_to_id);
 
-		$this->mskill->set_action_end($player_id, $timer);
-		
+		$set = $this->mskill->set_action_end($player_id, $timer);
+
 		return $timer;
 	}
 

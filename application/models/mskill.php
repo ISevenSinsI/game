@@ -27,7 +27,7 @@ Class MSkill extends CI_Model
 	}
 
 	public function set_action_end($player_id, $timer){
-		$current_time = strtotime(date("Y-m-d"));
+		$current_time = strtotime(date("Y-m-d H:i:s"));
 		$action_end = $current_time + $timer;
 
 		$player = new Player($player_id);

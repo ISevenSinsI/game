@@ -41,18 +41,8 @@ class Ajax extends CI_Controller
 		echo $this->mplayer->change_location($player_id,$location_to_id,$location_from_id);
 	}
 
-	public function check_action_end(){
-		$player_id = $this->input->post("player_id");
-		$response = $this->mplayer->check_action_end($player_id);
-
-		if($response){
-			$_SESSION["user"]["action_end_check"] = "true";
-		} else {
-			$_SESSION["user"]["action_end_check"] = "false";
-		}
-	}
-	public function get_action_end(){
-		echo json_encode($_SESSION["user"]["action_end_check"]);
+	public function get_action_end($player_id){
+		echo json_encode($this->mplayer->check_action_end($player_id));
 	}
 
 	public function reload_location(){

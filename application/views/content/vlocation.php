@@ -13,7 +13,7 @@
 
 	<div class="location_players_list">
 	 	<?php foreach($location["players_on_location"] as $_player): ?>
-	 		<?= $_player; ?>
+	 		<?= $_player; ?><br />
 	 	<?php endforeach; ?>
 	</div>
 </div>

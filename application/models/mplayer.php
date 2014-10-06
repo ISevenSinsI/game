@@ -11,6 +11,7 @@ class MPlayer extends CI_Model{
 		$data["currency"] = $player->currency;
 		$data["location_id"] = $player->location_id;
 		$data["rank_id"] = $player->rank_id;
+		$data["action_end"] = $player->action_end;
 
 		return $data;
 	}
@@ -19,15 +20,15 @@ class MPlayer extends CI_Model{
 		$player = new Player($player_id);
 
 		$action_end = $player->action_end;
-		$current_time = time(date("Y-m-d"));
+		$current_time = strtotime(date("Y-m-d H:i:s"));
 
 		if($action_end <= $current_time)
 		{
 			$player->action_end = 0;
 			$player->save();
-			return 1;
+			return true;
 		} else {
-			return 0;
+			return false;
 		}
 	}
 

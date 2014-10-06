@@ -63,15 +63,14 @@
 			go_to_location(player_id, location_from_id, location_to_id);
 
 			var interval = setInterval(function() {
-			    check_action_end(player_id);
-			    $.get("ajax/get_action_end", function(e) {
+			    $.get("ajax/get_action_end/" + player_id, function(e) {
 			        response = jQuery.parseJSON(e);
-			        if (response === "true") {
+			        if (response === true) {
 			            stop_interval(interval);
 			            location_change = change_location(player_id, location_to_id, location_from_id)
 			        }
 			    })
-			})
+			},3000);
 		}
 	});
 </script>

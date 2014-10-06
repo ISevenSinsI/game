@@ -4,8 +4,6 @@ function go_to_location(player_id, location_from_id, location_to_id){
 		location_from_id: location_from_id,
 		location_to_id: location_to_id
 	},function(data){
-		console.log(data);
-
 		data = jQuery.parseJSON(data);
 		timer = parseFloat(data.timer);
 
@@ -25,7 +23,7 @@ function change_location(player_id, location_to_id, location_from_id){
 		location_to_id: location_to_id,
 		location_from_id: location_from_id,
 	},function(data){
-		// console.log(data);
+		console.log(data);
 
 		reload_content();
 	});
