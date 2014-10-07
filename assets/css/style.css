@@ -157,6 +157,9 @@ body{
 	border-bottom: 1px solid black;
 	color: rgb(108, 58, 58);
 }
+.town_header{
+	cursor: pointer;
+}
 .travel{
 	padding-left: 5%;
 	padding-bottom: 7.5%;
@@ -173,8 +176,9 @@ body{
 	padding-left: 5%;
 	cursor: pointer;
 }
-.input_timer{
+#input_timer{
 	width: 5%;
+	text-align: center;
 	font-size: 18px;
 	color: white;
 	background: rgba(53, 53, 54, 0.85);
@@ -208,6 +212,7 @@ body{
 	border-radius: 15px;
 	height: 300px;
 	width: 100%;
+	border: 1px solid black;
 }
 .location_description{
 	margin-top: 5px;
@@ -215,5 +220,42 @@ body{
 }
 .location_players_this_location{
 	float: right;
+	text-align: center;
+}
+
+
+/**********************/
+/*       vaction      */
+/**********************/
+.actions_wrapper{
+	padding: 0px 0px 0px 10px;
+}
+.actions_content{
+	text-align: center;
+}
+.action_results{
+
+}
+.action_current_players{
+	float: right;
+	text-align: center;
+}	
+.action_image img{
+	border-radius: 15px;
+	height: 300px;
+	width: 100%;
+	border: 1px solid black;
+}
+.action_timer{
+	position: absolute;
+	right: 35%;
+	margin-top: -5%;
+}
+.action_description{
+	margin-top: 5px;
+	font-weight: bold;
+}
+.action_results{
+	margin-top: 15px;
 	text-align: center;
 }

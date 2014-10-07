@@ -41,7 +41,7 @@ class Ajax extends CI_Controller
 		echo $this->mplayer->change_location($player_id,$location_to_id,$location_from_id);
 	}
 
-	public function get_action_end($player_id){
+	public function get_travel_end($player_id){
 		echo json_encode($this->mplayer->check_action_end($player_id));
 	}
 
@@ -71,14 +71,30 @@ class Ajax extends CI_Controller
 		$data["timer"] = $timer;
 		$data["action"] = $action->to_array();
 
-
 		echo json_encode($data);
 	}
 	public function load_action($action_id, $player_id){
 		$data["action"] = $action = $this->maction->get($action_id);
 		$data["action"]["timer"] = $this->maction->calculate_timer($player_id, $action_id);
-		
+		$data["action"]["other_users"] = $this->maction->get_users_working_here($player_id, $action_id);
+
+		if(isSet($_SESSION["rewards"])){
+			$data["rewards"] = $_SESSION["rewards"];
+			unset($_SESSION["rewards"]);
+		}
+
 		$this->load->view("content/vaction", $data);
+	}
+	public function complete_action(){
+		$player_id = $this->input->post("player_id");
+		$action_id = $this->input->post("action_id");
+
+		echo json_encode($this->maction->complete($player_id, $action_id));
+	}
+	public function set_rewards_session(){
+		$_SESSION["rewards"]["items"] = $this->input->post("items");
+		$_SESSION["rewards"]["exp"] = $this->input->post("exp");
+		$_SESSION["rewards"]["currency"] = $this->input->post("currency");
 	}
 }	
 ?>

@@ -1,16 +1,12 @@
 <?php
 
-class Action extends DataMapper {
+class Action_Reward extends DataMapper {
 
-    var $table = "actions";
+    var $table = "actions_rewards";
     
-    var $has_one = array("action_reward");
+    var $has_one = array("action");
     
-    var $has_many = array(
-    	"location" => array(
-    		"join_table" => "actions_locations"
-    	),
-    );
+    var $has_many = array();
 
     var $validation = array();
 

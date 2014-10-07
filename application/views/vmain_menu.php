@@ -1,5 +1,5 @@
 <div class="town">
-	<h3><?= $location["name"]; ?></h3>
+	<h3 class="town_header"><?= $location["name"]; ?></h3>
 </div>
 <div class="travel">
 	<h4>Travel</h4>
@@ -15,9 +15,12 @@
 	<h4>Actions</h4>
 	<? if(isSet($location["actions"])): ?>
 		<?php foreach($location["actions"] as $_action): ?>
-			<div class="action_option" data-action_id="<?= $_action["id"]; ?>">
+			<div class="action_option"  data-action_id="<?= $_action["id"]; ?>">
 				<?= $_action["name"];?>
 			</div>
 		<?php endforeach; ?>
 	<? endif ?>
+</div>
+<div class="inventory">
+	
 </div>

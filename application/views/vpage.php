@@ -7,7 +7,7 @@
 
 		<!-- Scripts -->
 		<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-		<script src="assets/js/useractions.js"></script>
+		<script src="<?= site_url('assets/js/useractions.js'); ?>"></script>
 	</head>
 	<body>
 		<div class="pure-g">
@@ -26,7 +26,6 @@
 
 <script>
 	one_time = false;
-
 	$(".right_menu").on("hover", ".skill_span",function(){
 		id = $(this).data("id");
 		elem = $(".skill_exp[data-id='"+id+"']");
@@ -39,9 +38,16 @@
 		}
 	});
 
+	$(".main_menu").on("click", ".town_header", function(){
+		clear_all_intervals();
+		reload_content();
+	});
+
 	$(".main_menu").on("click", ".action_option", function(){
 		if(one_time == false){
 			one_time = true;
+
+			clear_all_intervals();
 
 			setTimeout(function(){
 				one_time = false;
@@ -50,7 +56,6 @@
 			player_id = <?= $player["id"] ?>;
 			action_id = $(this).data("action_id");
 
-			console.log(action_id);
 			do_action(player_id, action_id);
 		}
 	});
@@ -58,6 +63,8 @@
 	$(".main_menu").on("click", ".travel_option", function(){
 		if(one_time == false){
 			one_time = true;
+
+			clear_all_intervals();
 
 			setTimeout(function(){one_time = false;},1000);
 
@@ -69,14 +76,14 @@
 			go_to_location(player_id, location_from_id, location_to_id);
 
 			var interval = setInterval(function() {
-			    $.get("ajax/get_action_end/" + player_id, function(e) {
+			    $.get("ajax/get_travel_end/" + player_id, function(e) {
 			        response = jQuery.parseJSON(e);
 			        if (response === true) {
-			            stop_interval(interval);
-			            location_change = change_location(player_id, location_to_id, location_from_id)
+			            clearInterval(interval);
+			            location_change = change_location(player_id, location_to_id, location_from_id);
 			        }
 			    })
-			},3000);
+			},2500);
 		}
 	});
 </script>
