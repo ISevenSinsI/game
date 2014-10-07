@@ -9,16 +9,16 @@
 			<?= $player["username"]; ?>
 		</span><br />
 		<span class="player_character_level">
-			Lvl: <?= $player["character"]["level"]; ?>
+			Lvl: <?= number_format($player["character"]["level"]); ?>
 		</span><br />
 		<span class="player_character_exp">
-			Exp: <?= $player["character"]["exp"]; ?>
+			Exp: <?= number_format($player["character"]["exp"]); ?>
 		</span><br />
 		<span class="player_character_exp_next_lvl">
-			Next lvl: <?= $player["character"]["exp_next_level"];?>
+			Next lvl: <?= number_format($player["character"]["exp_next_level"]);?>
 		</span><br />
 		<span class="player_character_currency">
-			Money: <?= $player["currency"]; ?>
+			Money: <?= number_format($player["currency"]); ?>
 		</span>
 	</div>
 	<div class="skills">
@@ -29,7 +29,8 @@
 					<?= $_skill["name"]; ?>: Lvl. <?= $_skill["level"]; ?>
 				</span><br />
 				<span class="skill_exp" data-id="<?= $_skill['id']; ?>">
-					Exp. <?= $_skill["exp"]; ?> / Next lvl. <?= $_skill['exp_next_level'];?>
+					Exp. <?= number_format($_skill["exp"]); ?><br />
+					Next <?= number_format($_skill['exp_next_level']);?>
 				</span>
 			<?php endif; ?>
 		<?php endforeach; ?>
