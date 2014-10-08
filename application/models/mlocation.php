@@ -48,18 +48,21 @@ class MLocation extends CI_Model
 			$timer = $data[$location_to->id]["timer"];
 		} 	
 		
-		foreach($travel_scheme
-			->where("location_to_id", $location_from->id)
-			->get() as $_scheme){
+		if(!isSet($travel_scheme->id)){
+			foreach($travel_scheme
+				->where("location_to_id", $location_from->id)
+				->get() as $_scheme){
 
-			$location_to = new Location($_scheme->location_from_id);
+				$location_to = new Location($_scheme->location_from_id);
 
-			$data[$location_to->id]["name"] = $location_to->name;
-			$data[$location_to->id]["exp"] = $_scheme->exp;
-			$data[$location_to->id]["timer"] = $this->mspeed->calculate_travel_time($player_id, $location_id, $location_to->id); 		
-			$timer = $data[$location_to->id]["timer"];
+				$data[$location_to->id]["name"] = $location_to->name;
+				$data[$location_to->id]["exp"] = $_scheme->exp;
+				$data[$location_to->id]["timer"] = $this->mspeed->calculate_travel_time($player_id, $location_id, $location_to->id); 		
+				$timer = $data[$location_to->id]["timer"];
+			}
 		}
-		return $data;	
+
+		return $data;
 	}
 
 	public function go_to_location($player_id, $location_from_id, $location_to_id){

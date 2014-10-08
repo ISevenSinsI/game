@@ -94,9 +94,9 @@ class Ajax extends CI_Controller
 		echo json_encode($this->maction->complete($player_id, $action_id));
 	}
 	public function set_rewards_session(){
+		$_SESSION["rewards"]["items"] = $this->input->post("items");
 		$_SESSION["rewards"]["exp"] = $this->input->post("exp");
 		$_SESSION["rewards"]["currency"] = $this->input->post("currency");
-		$_SESSION["rewards"]["items"] = $this->input->post("items");
 	}
 }	
 ?>

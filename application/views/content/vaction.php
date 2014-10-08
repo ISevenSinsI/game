@@ -16,15 +16,8 @@
 <?php 	if(isset($rewards)){
 			foreach($rewards as $key => $_reward){
 				if($_reward != ""){
-					if($key == "currency" && $_reward != 0){
-						echo "You have earned " . $_reward . " " . $key . "<br />";	
-					} else if($key == "exp"){
-						echo "You have gained " . $_reward . " " . $key . "<br />";	
-					}
-					if($key == "items"){
-						foreach($_reward as $item){
-							echo "You have obtained " .$item['amount'] . " " . $item['name'] . "<br/>";
-						}
+					if($key != "currency" || $_reward != 0){
+						echo "You have gained " . $_reward . " " . $key . "<br />";
 					}
 				}
 			}

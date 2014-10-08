@@ -172,13 +172,12 @@ body{
 }
 .travel_options{
 	font-size: 14px;
+	padding-left: 5%;
 }
 .travel_option{
-	margin-top: 1%;
 	padding-left: 5%;
 	cursor: pointer;
 }
-
 #input_timer{
 	width: 5%;
 	text-align: center;
@@ -233,15 +232,6 @@ body{
 	height: 50px;
 	width: 50px;
 }
-.equiped{
-	background: rgba(15, 15, 238, 0.32);
-	height: 50px;
-	width: 50px;
-	position: absolute;
-}
-.arrow{
-	background:pink;
-}
 /**********************/
 /*      vlocation     */
 /**********************/
@@ -254,7 +244,7 @@ body{
 }
 .location_img{
 	border-radius: 15px;
-	height: 400;
+	height: 300px;
 	width: 100%;
 	border: 1px solid black;
 }

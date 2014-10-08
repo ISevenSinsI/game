@@ -3,13 +3,13 @@
 </div>
 <div class="pure-u-1 travel">
 	<h4>Travel</h4>
-	<div class="travel_options">
+	<span class="travel_options">
 		<?php foreach($location["travel_options"] as $key => $_travel): ?>
 			<div class="travel_option" data-location_from_id="<?= $location['id']; ?>" data-location_to_id="<?= $key; ?>">
 				<?= $_travel["name"]; ?>
 			</div>
 		<?php endforeach; ?>
-	</div>
+	</span>
 </div>
 <div class="pure-u-1 actions">
 	<h4>Actions</h4>
@@ -25,14 +25,8 @@
 	<h4>Inventory</h4>
 	<div class="inventory_inner">
 		<?php foreach($player["inventory"] as $key => $_inventory): ?>
-			<div class="pure-u-1-6 inventory_slot">	
-				<?php if($_inventory["equiped"]): ?>
-					<div class="equiped"></div>
-				<?php endif;?>
-
-				<img class="item_image" src="<?= $_inventory['img_path'] ?>" title="<?= $_inventory["amount"]; ?>"/>
-
-				<div class="amount"></div>
+			<div class="pure-u-1-6 inventory_slot">
+				<img class="item_image" src="<?= $_inventory['img_path'] ?>" />
 			</div>
 		<?php endforeach; ?>
 	</div>

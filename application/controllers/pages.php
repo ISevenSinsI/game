@@ -13,10 +13,6 @@ class Pages extends CI_Controller
 		
 		if(check_session()){
 
-			$this->load->model("maction");
-			($this->maction->calculate_reward_change(1,2));
-			// debug($this->mitem->check_equiped(1,2));
-
 			$player = $this->mplayer->get($_SESSION["user"]["id"]);
 			$location = $this->mlocation->get($player["id"],$player["location_id"]);
 

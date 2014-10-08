@@ -5,7 +5,6 @@ Class MAction extends CI_Model{
         // Call the Model constructor
         parent::__construct();
         $this->load->model("mluck");
-        $this->load->model("mwoodcutting");
     }
    	public function get_timer($id){
    		$action = new Action($id);
@@ -44,9 +43,6 @@ Class MAction extends CI_Model{
 		if($action->skill_id == "3"){
 			$timer = $this->mluck->calculate_timer($player_id, $action_id);
 		}
-		if($action->skill_id == "4"){
-			$timer = $this->mwoodcutting->calculate_timer($player_id, $action_id);
-		}
 
 		return $timer;
 	}
@@ -64,9 +60,9 @@ Class MAction extends CI_Model{
 			$reward = new Action_Reward();
 			$reward->where("action_id",$action_id)->get();
 
+			$data["items"] = $this->calculate_reward_change($player_id, $reward->id);
 			$data["exp"] = $this->calculate_experience($player_id,$reward->id);
 			$data["currency"] = $this->calculate_currency($player_id, $reward->id);
-			$data["items"] = $this->calculate_reward_change($player_id, $reward->id);
 		}
 
 		return $data;
@@ -85,37 +81,21 @@ Class MAction extends CI_Model{
 		if($reward->item_1_id > 0 && $reward->item_1_chance > 0){
 			$rand = rand(0,100);
 			if($rand <= ($reward->item_1_chance + $chance_increase)){
-				$amount = explode("::", $reward->item_1_amount);
-				$rand = rand(0, count($amount));
-
-				$rand--;
-				if($rand == -1){$rand = 0;}
-
-				$item_amount = $amount[$rand];
-				
-				$give = $this->mitem->give_item($player_id, $reward->item_1_id, $item_amount);
-
-				$item = new Item($reward->item_1_id);
-				$data["item_1"]["name"] = $item->name; 
-				$data["item_1"]["amount"] = $item_amount;
+				/////////////////////////////////////////
+				//                                     //
+				// Write code to add item to inventory //
+				//                                     //
+				/////////////////////////////////////////
 			}	
 		}
 		if($reward->item_2_id > 0 && $reward->item_2_chance > 0){
 			$rand = rand(0,100);
 			if($rand <= ($reward->item_1_chance + $chance_increase)){
-				$amount = explode("::", $reward->item_2_amount);
-				$rand = rand(0, count($amount));
-
-				$rand--;
-				if($rand == -1){$rand = 0;}
-
-				$item_amount = $amount[$rand];
-				
-				$give = $this->mitem->give_item($player_id, $reward->item_2_id, $item_amount);
-
-				$item = new Item($reward->item_2_id);
-				$data["item_2"]["name"] = $item->name; 
-				$data["item_2"]["amount"] = $item_amount;
+				/////////////////////////////////////////
+				//                                     //
+				// Write code to add item to inventory //
+				//                                     //
+				/////////////////////////////////////////
 			}	
 		}
 
