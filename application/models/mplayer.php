@@ -36,8 +36,7 @@ class MPlayer extends CI_Model{
 		$player = new Player($player_id);
 
 		if($_SESSION["user"]["username"] == $player->username 
-			&& $_SESSION["user"]["action_end_check"] == true
-			&& $player->action_end == 0){
+			&& $this->check_action_end($player_id)){
 
 			$player->location_id = $location_to_id;
 
