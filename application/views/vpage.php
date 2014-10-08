@@ -6,7 +6,9 @@
 		<link rel="stylesheet" href="assets/css/style.css">
 
 		<!-- Scripts -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 		<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+  		<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 		<script src="<?= site_url('assets/js/useractions.js'); ?>"></script>
 	</head>
 	<body>
@@ -23,8 +25,39 @@
 		</div>
 	</body>
 </html>
-
+<style>
+.ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+</style>
 <script>
+	clear_all_intervals();
+
+	$(".item_image").tooltip({
+		
+		position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+	});
+
+	
 	one_time = false;
 	$(".right_menu").on("hover", ".skill_span",function(){
 		id = $(this).data("id");

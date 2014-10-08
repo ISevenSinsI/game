@@ -65,12 +65,14 @@ class MPlayer extends CI_Model{
 			$conditions = preg_split($pattern, $key, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 			if(isSet($conditions[1])){
 				if(is_numeric($conditions[1]) && $conditions[2] != "_amount"){	
-					$item_id = preg_split($pattern, $key, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)[1];
+					$slot_id = preg_split($pattern, $key, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)[1];
+					$item_id = $inv;
 					$array_item = "item_" . $item_id . "_amount";
 
-					$data["item_" + $item_id] = $this->mitem->get($item_id);
+					$data["item_" + $slot_id] = $this->mitem->get($item_id);
 
-					$data["item_" + $item_id]["amount"] = $inventory->{$array_item};
+					$data["item_" + $slot_id]["amount"] = $inventory->{$array_item};
+					$data["item_" + $slot_id]["equiped"] = $this->mitem->check_equiped($player_id, $item_id);
 				}
 			}
 		}
