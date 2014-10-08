@@ -1,6 +1,11 @@
 <?php
 class MPlayer extends CI_Model{
 
+	public function __construct(){
+    	parent::__construct();
+    	$this->load->model("mitem");
+   	}
+
 	public function get($id){
 		$player = new Player($id);
 		$data = array();
@@ -12,6 +17,7 @@ class MPlayer extends CI_Model{
 		$data["location_id"] = $player->location_id;
 		$data["rank_id"] = $player->rank_id;
 		$data["action_end"] = $player->action_end;
+		$data["inventory"] = $this->get_inventory($id);
 
 		return $data;
 	}
@@ -48,5 +54,29 @@ class MPlayer extends CI_Model{
 		}
 	}
 
+	public function get_inventory($player_id){
+		$player = new Player($player_id);
+		$inventory = $player->inventory->get();
+		$temp_data = $inventory->to_array();
+
+		$pattern = "/(\d+)/";
+
+		foreach($temp_data as $key => $inv){
+			$conditions = preg_split($pattern, $key, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+			if(isSet($conditions[1])){
+				if(is_numeric($conditions[1]) && $conditions[2] != "_amount"){	
+					$item_id = preg_split($pattern, $key, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)[1];
+					$array_item = "item_" . $item_id . "_amount";
+
+					$data["item_" + $item_id] = $this->mitem->get($item_id);
+
+					$data["item_" + $item_id]["amount"] = $inventory->{$array_item};
+				}
+			}
+		}
+		
+		return $data;
+	}
+
 }
-?>
+?>	

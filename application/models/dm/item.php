@@ -1,18 +1,14 @@
 <?php
 
-class Player extends DataMapper {
+class Item extends DataMapper {
 
-    var $table = "players";
+    var $table = "items";
     
-    var $has_one = array(
-        "location",
-        "inventory"
-    );
+    var $has_one = array();
     
     var $has_many = array(
-        "skill",
-        "item"
-    );
+    	// Bonus
+	);
 
     var $validation = array();
 

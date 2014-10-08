@@ -51,6 +51,8 @@ class Ajax extends CI_Controller
 	}
 	public function reload_main_menu(){
 		$temp_data["location"] = $this->mlocation->get($_SESSION["user"]["id"], $_SESSION["user"]["location_id"]);
+		$temp_data["player"] = $this->mplayer->get($_SESSION["user"]["id"]);
+		
 		$this->load->view("vmain_menu", $temp_data);
 	}
 	public function reload_right_menu(){

@@ -1,7 +1,7 @@
-<div class="town">
+<div class="pure-u-1 town">
 	<h3 class="town_header"><?= $location["name"]; ?></h3>
 </div>
-<div class="travel">
+<div class="pure-u-1 travel">
 	<h4>Travel</h4>
 	<span class="travel_options">
 		<?php foreach($location["travel_options"] as $key => $_travel): ?>
@@ -11,7 +11,7 @@
 		<?php endforeach; ?>
 	</span>
 </div>
-<div class="actions">
+<div class="pure-u-1 actions">
 	<h4>Actions</h4>
 	<? if(isSet($location["actions"])): ?>
 		<?php foreach($location["actions"] as $_action): ?>
@@ -21,6 +21,13 @@
 		<?php endforeach; ?>
 	<? endif ?>
 </div>
-<div class="inventory">
-	
+<div class="pure-u-1 inventory">
+	<h4>Inventory</h4>
+	<div class="inventory_inner">
+		<?php foreach($player["inventory"] as $key => $_inventory): ?>
+			<div class="pure-u-1-6 inventory_slot">
+				<img class="item_image" src="<?= $_inventory['img_path'] ?>" />
+			</div>
+		<?php endforeach; ?>
+	</div>
 </div>
