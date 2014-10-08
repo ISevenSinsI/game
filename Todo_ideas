@@ -1,5 +1,21 @@
 Todo // Ideeën
 
+- Travel display fixen
+	- Ombouwen naar goede view i.p.v rauwe html
+	- Travel image verwerken.
+	- Random events?
+		- Ideeën?
+
+- Inventory maken
+	- Tabel met player id en 20x item_id
+	- Uitdenken van equiped van items (database)
+
+- Shops
+	- Tabel met shop id, en X aantal item_ids
+	- Item_buy_price & item_sell_price
+	- Als 0, dan niet verkopen/kopen.
+		- Op die manier geen dubbele records aanmaken voor verkopen en kopen.
+
 - Character xp toevoegen.
 	- Per action andere xp.
 	- Geen % van xp gain. (oneerlijk met sneller skills)
