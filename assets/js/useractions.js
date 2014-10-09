@@ -105,7 +105,8 @@ function complete_action(player_id, action_id){
 
 		});
 
-		reload_right_menu();
+		reload_main_menu();
+		reload_right_menu();	
 		do_action(player_id, action_id);
 	});
 }
@@ -113,4 +114,16 @@ function clear_all_intervals(){
 	for (var i = 1; i < 10; i++){
         window.clearInterval(i);
 	}
+}
+
+function equip_item(player_id, item_id){
+
+	$.post("ajax/equip_item",{
+		player_id: player_id,
+		item_id: item_id
+	},function(data){
+		console.log(data);
+
+		reload_main_menu();
+	});
 }

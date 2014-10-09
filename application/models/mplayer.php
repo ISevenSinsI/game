@@ -80,5 +80,15 @@ class MPlayer extends CI_Model{
 		return $data;
 	}
 
+	public function in_inventory($player_id,$item_id){
+		$inventory = $this->get_inventory($player_id);
+
+		foreach($inventory as $key => $_inventory){
+			if($inventory ==  $item_id){
+				return true;
+			}
+		}
+		return false;
+	}
 }
 ?>	

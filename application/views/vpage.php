@@ -25,40 +25,11 @@
 		</div>
 	</body>
 </html>
-<style>
-.ui-tooltip, .arrow:after {
-    background: black;
-    border: 2px solid white;
-  }
-  .ui-tooltip {
-    padding: 10px 20px;
-    color: white;
-    font: bold 14px "Helvetica Neue", Sans-Serif;
-    text-transform: uppercase;
-    box-shadow: 0 0 7px black;
-  }
-</style>
+
 <script>
 	clear_all_intervals();
-
-	$(".item_image").tooltip({
-		
-		position: {
-        my: "center bottom-20",
-        at: "center top",
-        using: function( position, feedback ) {
-          $( this ).css( position );
-          $( "<div>" )
-            .addClass( "arrow" )
-            .addClass( feedback.vertical )
-            .addClass( feedback.horizontal )
-            .appendTo( this );
-        }
-      }
-	});
-
-	
 	one_time = false;
+
 	$(".right_menu").on("hover", ".skill_span",function(){
 		id = $(this).data("id");
 		elem = $(".skill_exp[data-id='"+id+"']");
@@ -70,6 +41,22 @@
 			elem.css("display","none");
 		}
 	});
+
+	$(".main_menu").on("click", ".inventory_slot",function(){
+		if(one_time == false){
+			one_time = true;
+
+			setTimeout(function(){
+				one_time = false;
+			},1000);
+
+			player_id = <?= $player["id"]; ?>;
+			item_id = $(this).data("item_id");
+
+			equip_item(player_id, item_id);
+		}
+	});
+
 
 	$(".main_menu").on("click", ".town_header", function(){
 		clear_all_intervals();
@@ -92,6 +79,7 @@
 			do_action(player_id, action_id);
 		}
 	});
+
 
 	$(".main_menu").on("click", ".travel_option", function(){
 		if(one_time == false){

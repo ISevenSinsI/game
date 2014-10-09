@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2014 at 01:46 AM
+-- Generation Time: Oct 09, 2014 at 09:55 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `actions_rewards` (
 
 INSERT INTO `actions_rewards` (`id`, `action_id`, `exp`, `exp_chance`, `currency`, `currency_chance`, `item_1_id`, `item_1_amount`, `item_1_chance`, `item_2_id`, `item_2_amount`, `item_2_chance`, `created`, `updated`, `deleted`) VALUES
 (1, 1, 10, '50.00', 8, '100.00', 0, '0', '0.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 2, 20, '100.00', 0, '0.00', 2, '1::2', '100.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(2, 2, 20, '100.00', 0, '0.00', 2, '1::1::2', '100.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -254,14 +254,14 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   `item_19_amount` int(11) NOT NULL,
   `item_20_amount` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `inventories`
 --
 
 INSERT INTO `inventories` (`id`, `player_id`, `item_1_id`, `item_2_id`, `item_3_id`, `item_4_id`, `item_5_id`, `item_6_id`, `item_7_id`, `item_8_id`, `item_9_id`, `item_10_id`, `item_11_id`, `item_12_id`, `item_13_id`, `item_14_id`, `item_15_id`, `item_16_id`, `item_17_id`, `item_18_id`, `item_19_id`, `item_20_id`, `created`, `updated`, `deleted`, `item_1_amount`, `item_2_amount`, `item_3_amount`, `item_4_amount`, `item_5_amount`, `item_6_amount`, `item_7_amount`, `item_8_amount`, `item_9_amount`, `item_10_amount`, `item_11_amount`, `item_12_amount`, `item_13_amount`, `item_14_amount`, `item_15_amount`, `item_16_amount`, `item_17_amount`, `item_18_amount`, `item_19_amount`, `item_20_amount`) VALUES
-(1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 56460, 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 1, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 209, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -272,6 +272,7 @@ INSERT INTO `inventories` (`id`, `player_id`, `item_1_id`, `item_2_id`, `item_3_
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `type_id` int(11) NOT NULL,
   `skill_required` int(11) NOT NULL,
   `level_required` int(11) NOT NULL,
@@ -283,15 +284,16 @@ CREATE TABLE IF NOT EXISTS `items` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `type_id`, `skill_required`, `level_required`, `equip_location_id`, `bonus_1_id`, `bonus_2_id`, `img_path`, `created`, `updated`, `deleted`) VALUES
-(1, 'Stone axe', 1, 4, 1, 1, 0, 0, 'assets/img/items/woodcutting/stone-axe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'logs', 3, 0, 0, 0, 0, 0, 'assets/img/items/woodcutting/logs.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `items` (`id`, `name`, `description`, `type_id`, `skill_required`, `level_required`, `equip_location_id`, `bonus_1_id`, `bonus_2_id`, `img_path`, `created`, `updated`, `deleted`) VALUES
+(1, 'Stone axe', 'Used to gather wood.', 1, 4, 1, 1, 0, 0, 'assets/img/items/woodcutting/stone-axe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Logs', 'This could keep you warm<br/> or make you a house.', 3, 0, 0, 0, 0, 0, 'assets/img/items/woodcutting/logs.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Stone pickaxe', 'Used to gather minerals and stone.', 1, 5, 1, 1, 0, 0, 'assets/img/items/mining/stone-pickaxe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -315,7 +317,11 @@ CREATE TABLE IF NOT EXISTS `items_equiped` (
 --
 
 INSERT INTO `items_equiped` (`id`, `player_id`, `item_id`, `equip_location_id`, `created`, `updated`, `deleted`) VALUES
-(1, 1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 3, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -396,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `players` (
 --
 
 INSERT INTO `players` (`id`, `username`, `currency`, `action_id`, `action_end`, `last_ip`, `email`, `password`, `location_id`, `rank_id`, `created`, `updated`, `deleted`) VALUES
-(1, 'ISevenSinsI', 1344, 2, 0, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 3, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 'ISevenSinsI', 1360, 1, 1412881691, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 1, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'xfirenl', 0, 0, 0, '127.0.0.1', '', '275963ee13631dfd2ebc91589d2ade', 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -419,10 +425,10 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
 --
 
 INSERT INTO `players_skills` (`id`, `player_id`, `skill_id`, `exp`, `level`) VALUES
-(1, 1, 1, 1478, 6),
-(2, 1, 2, 12020, 15),
+(1, 1, 1, 1533, 6),
+(2, 1, 2, 12140, 15),
 (3, 1, 3, 1031, 5),
-(4, 1, 4, 661, 4);
+(4, 1, 4, 1701, 6);
 
 -- --------------------------------------------------------
 

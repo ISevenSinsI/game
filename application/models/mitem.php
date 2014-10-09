@@ -1,6 +1,11 @@
 <?php
 class MItem extends CI_Model
 {
+	function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+    }
 	public function get($id){
 		$item = new Item($id);
 
@@ -11,6 +16,11 @@ class MItem extends CI_Model
 		$item = new Item($item_id);
 		$item_slot = $item->equip_location_id;
 
+		// Checken of item in inventory is.
+		debug($this->mplayer->in_inventory($player_id, $item_id);
+
+
+		// Checken of item equipable is.
 		$item_equiped = new Item_equiped();
 		$item_equiped->where("player_id", $player_id)->where("equip_location_id", $item_slot)->get();
 

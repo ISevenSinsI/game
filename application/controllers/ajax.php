@@ -98,5 +98,11 @@ class Ajax extends CI_Controller
 		$_SESSION["rewards"]["currency"] = $this->input->post("currency");
 		$_SESSION["rewards"]["items"] = $this->input->post("items");
 	}
+	public function equip_item(){
+		$player_id = $this->input->post("player_id");
+		$item_id = $this->input->post("item_id");
+
+		echo json_encode($this->mitem->equip($player_id, $item_id));
+	}
 }	
 ?>
