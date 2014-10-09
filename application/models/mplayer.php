@@ -30,7 +30,7 @@ class MPlayer extends CI_Model{
 
 		if($action_end <= $current_time)
 		{
-			$player->action_end = 0;
+			$player->action_end = 99999 * 100;
 			$player->save();
 			return true;
 		} else {
