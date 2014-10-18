@@ -17,18 +17,18 @@ class MItem extends CI_Model
 		$item_slot = $item->equip_location_id;
 
 		// Checken of item in inventory is.
-		debug($this->mplayer->in_inventory($player_id, $item_id);
+		if($this->mplayer->in_inventory($player_id, $item_id)){
+			// Checken of item equipable is.
+			if($this->check_if_equipable($item_id)){
+				$item_equiped = new Item_equiped();
+				$item_equiped->where("player_id", $player_id)->where("equip_location_id", $item_slot)->get();
 
-
-		// Checken of item equipable is.
-		$item_equiped = new Item_equiped();
-		$item_equiped->where("player_id", $player_id)->where("equip_location_id", $item_slot)->get();
-
-		$item_equiped->player_id = $player_id;
-		$item_equiped->item_id = $item_id;
-		$item_equiped->equip_location_id = $item_slot;
-
-		return $item_equiped->save();
+				$item_equiped->player_id = $player_id;
+				$item_equiped->item_id = $item_id;
+				$item_equiped->equip_location_id = $item_slot;
+				return $item_equiped->save();
+			}
+		}
 	}
 
 	public function get_equiped($player_id){
@@ -70,13 +70,79 @@ class MItem extends CI_Model
 			$check = "item_".$found["id"]."_amount";
 			$new_amount = $found["amount"] + $amount;
 
-
 			$inventory = new Inventory();
 			$inventory->where("player_id",$player_id)->get();
 			$inventory->$check = $new_amount;
 			$inventory->save();
 
 			return true;
+		} else{
+			// Check if there is a free spot
+			$free_spot = $this->check_free_spot($player_id);
+			if($free_spot != false){
+				$item_slot_id = $free_spot ."_id";
+
+				$item_amount = $free_spot . "_amount";
+
+				$inventory = new Inventory();
+				$inventory->where("player_id",$player_id)->get();
+				$inventory->$item_slot_id = $item_id;
+
+				$current_amount = $inventory->$item_amount;
+				$new_amount = $current_amount + $amount;
+
+				$inventory->$item_amount = $new_amount;
+				$inventory->save();
+			}
 		}
+	}
+
+	public function check_free_spot($player_id){
+		$inventory = new Inventory();	
+		$inventory->where("player_id",$player_id)->get();
+		$data = $inventory->to_array();
+
+		foreach($data as $key => $inv_slot){
+			if($inv_slot == 0){	
+				$item_slot_id = explode("_id",$key)[0];
+				$slot = $item_slot_id."_amount";
+
+				$inventory->$slot = 0;
+				$inventory->save();
+				
+				return $item_slot_id;
+			}
+		}
+
+		return false;
+	}
+
+	public function check_if_equipable($item_id){
+		$item = new Item($item_id);
+
+		if($item->type_id == 1){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function check_subtype_equiped($player_id, $subtype_id){
+		if($subtype_id == 0){return true;}
+		$inventory = new Inventory();
+		$inventory->where("player_id",$player_id)->get();
+		$data = $inventory->to_array();
+
+		foreach($data as $slot){
+			if($slot > 0){
+				$item = new Item($slot);
+				if($item->subtype_id == $subtype_id){
+					if($this->check_equiped($player_id,$item->id)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -38,6 +38,7 @@ body{
 	background-color: #cecece;
 	border-bottom-left-radius: 30px;
 	border-top-left-radius: 30px;
+	padding-bottom: .5%;
 }
 .map{
 	box-sizing: border-box;
@@ -210,6 +211,21 @@ body{
 	bottom: 0;
 	height: 60%;
 	overflow: auto;
+	position:relative;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(1,1,1,1.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 .inventory h4{
@@ -229,16 +245,19 @@ body{
 	border: 3px inset rgba(67, 13, 13, 0.4);
 	background: rgba(67, 13, 13, 0.18);
 	border-radius: 5px;
+	position: relative;
 }
 .item_image{
 	height: 50px;
 	width: 50px;
 }
-.equiped{
+
+.inventory_slot .equiped{
 	background: rgba(15, 15, 238, 0.32);
-	height: 50px;
+	position: absolute;	
 	width: 50px;
-	position: absolute;
+	height: 50px;
+	z-index: 1;
 }
 .arrow{
 	background:pink;
@@ -295,12 +314,23 @@ body{
 	position: absolute;
 	right: 35%;
 	margin-top: -5%;
-}
-.action_description{
-	margin-top: 5px;
+
+}.action_description{
 	font-weight: bold;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 7px 15px 5px 15px;
+	background: rgba(73, 73, 178, 0.3);
+	border: 1px solid black;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	border-top: 0px;
 }
 .action_results{
 	margin-top: 15px;
+	text-align: center;
+}
+.action_skill_level{
 	text-align: center;
 }

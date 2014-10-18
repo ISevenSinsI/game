@@ -84,11 +84,23 @@ class MPlayer extends CI_Model{
 		$inventory = $this->get_inventory($player_id);
 
 		foreach($inventory as $key => $_inventory){
-			if($inventory ==  $item_id){
+			if($_inventory["id"] == $item_id){
 				return true;
 			}
 		}
 		return false;
 	}
+
+	public function check_required_level($player_id,$skill_id, $required){
+		$player = new Player($player_id);
+		$skill = $player->skill->where("id", $skill_id)->include_join_fields()->get();
+
+		if($skill->join_level >= $required){
+			return true;
+		} else {
+			return false;
+		}
+		
+ 	}
 }
 ?>	

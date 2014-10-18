@@ -1,4 +1,5 @@
 function go_to_location(player_id, location_from_id, location_to_id){
+	clear_all_intervals();
 	$.post("ajax/go_to_location",{
 		player_id: player_id,
 		location_from_id: location_from_id,
@@ -7,17 +8,13 @@ function go_to_location(player_id, location_from_id, location_to_id){
 		data = jQuery.parseJSON(data);
 		timer = parseFloat(data.timer);
 
-		html = "";
-		html += "You are currenctly traveling to " + data.location_to + "<br />";
-		html += "This will take you " + data.timer + " seconds.<br/>"
-		html += "<input id='input_timer' type='text' name='timer' value='"+timer+"' readonly/>";
-		$(".wrapper").html(html);
-
+		$(".wrapper").load("ajax/load_travel/" + player_id + "/" + location_from_id + "/" + location_to_id + "/" + timer);
 		calculate_timer(data.timer, player_id, 0);		
 	});
 }
 
 function change_location(player_id, location_to_id, location_from_id){
+	clear_all_intervals();
 	$.post("ajax/change_location",{
 		player_id: player_id,
 		location_to_id: location_to_id,
@@ -84,13 +81,22 @@ function do_action(player_id, action_id){
 	},function(data){
 		response = jQuery.parseJSON(data);
 
-		$(".wrapper").load("ajax/load_action/" + action_id + "/" + player_id);
-
-		calculate_timer(data.timer, player_id, action_id);
+		if(response.timer){
+			$(".wrapper").load("ajax/load_action/" + action_id + "/" + player_id);
+			calculate_timer(data.timer, player_id, action_id);
+		} else {
+			if(response.error == "item"){
+				error = 1;
+			} else if (response.error == "level"){
+				error = 2;
+			}
+			$(".wrapper").load("ajax/load_action_error/" + error + "/" + action_id);
+		}
 	});
 }
 
 function complete_action(player_id, action_id){
+	clear_all_intervals();
 	$.post("ajax/complete_action",{
 		player_id: player_id,
 		action_id: action_id
@@ -122,8 +128,6 @@ function equip_item(player_id, item_id){
 		player_id: player_id,
 		item_id: item_id
 	},function(data){
-		console.log(data);
-
 		reload_main_menu();
 	});
 }

@@ -72,6 +72,19 @@ class MLocation extends CI_Model
 		return $timer;
 	}
 
-	
+	public function get_travel_image($location_from_id,$location_to_id){
+		$travel_scheme = new Travel_Scheme();
+
+		$travel_scheme->where("location_from_id", $location_from_id)->where("location_to_id", $location_to_id)->get();
+
+		if($travel_scheme->id == "" ){
+			$travel_scheme->where("location_to_id", $location_from_id)->where("location_from_id",$location_to_id)->get();
+			if($travel_scheme->id == ""){
+				return false;
+			}
+		} 
+		
+		return $travel_scheme->img_path;
+	}
 }
 ?>

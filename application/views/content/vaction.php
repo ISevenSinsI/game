@@ -31,6 +31,10 @@
 		} 
 ?>
 	</div>
+
+	<div class="action_skill_level pure-u-1">
+	 	<?= "<br />	Level " . $player["level"] . " (" . number_format($player["exp"]) ." exp) <br /> Next: ". number_format($player["exp_next_level"]) . " exp"; ?>
+	</div>
 </div>
 
 <div class="pure-u-1-4 action_current_players">

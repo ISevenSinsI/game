@@ -44,7 +44,7 @@ Class MSkill extends CI_Model
 				 ->where("name", $name)
 				 ->include_join_fields()
 				 ->get();
-
+				 
 		$data = array(
 			"level" => $skill->join_level,
 			"exp" => $skill->join_exp,
@@ -84,6 +84,24 @@ Class MSkill extends CI_Model
 		$skill->set_join_field($player, "level", $exp_table->level);
 
 		return $skill->join_level;
+	}
+
+	public function get_by_action($player_id, $action_id){
+		$action = new Action($action_id);
+		$player = new Player($player_id);
+
+		$skill = $player
+				 ->skill
+				 ->where("id", $action->skill_id)
+				 ->include_join_fields()
+				 ->get();
+
+		$data = array(
+			"level" => $skill->join_level,
+			"exp" => $skill->join_exp,
+			"exp_next_level" => $this->get_remaining_exp($skill->join_exp),
+		);
+		return $data;
 	}
 }
 ?>

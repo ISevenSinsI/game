@@ -65,13 +65,19 @@ class Ajax extends CI_Controller
 	public function do_action(){
 		$player_id = $this->input->post("player_id");
 		$action_id = $this->input->post("action_id");
-		$action = new Action($action_id);
-		$data = array();
 
 		$timer = $this->maction->do_action($player_id, $action_id);
+		if((int)$timer){
+			$action = new Action($action_id);
+			$data = array();
 
-		$data["timer"] = $timer;
-		$data["action"] = $action->to_array();
+			$data["timer"] = $timer;
+			$data["action"] = $action->to_array();
+			
+		} else {
+			$data = array();
+			$data["error"] = $timer;
+		}
 
 		echo json_encode($data);
 	}
@@ -79,6 +85,7 @@ class Ajax extends CI_Controller
 		$data["action"] = $action = $this->maction->get($action_id);
 		$data["action"]["timer"] = $this->maction->calculate_timer($player_id, $action_id);
 		$data["action"]["other_users"] = $this->maction->get_users_working_here($player_id, $action_id);
+		$data["player"] = $this->mskill->get_by_action($player_id, $action_id);
 
 		if(isSet($_SESSION["rewards"])){
 			$data["rewards"] = $_SESSION["rewards"];
@@ -87,6 +94,14 @@ class Ajax extends CI_Controller
 
 		$this->load->view("content/vaction", $data);
 	}
+
+	public function load_action_error($error, $action_id){
+		$data["action"] = $this->maction->get($action_id);
+		$data["error"] = $error;
+
+		$this->load->view("content/vaction_error", $data);
+	}
+
 	public function complete_action(){
 		$player_id = $this->input->post("player_id");
 		$action_id = $this->input->post("action_id");
@@ -101,8 +116,16 @@ class Ajax extends CI_Controller
 	public function equip_item(){
 		$player_id = $this->input->post("player_id");
 		$item_id = $this->input->post("item_id");
-
 		echo json_encode($this->mitem->equip($player_id, $item_id));
+	}
+
+	public function load_travel($player_id, $location_from_id, $location_to_id, $timer){
+		$data["travel"]["image"] = $this->mlocation->get_travel_image($location_from_id, $location_to_id);
+		$data["location_from"] = $this->mlocation->get($player_id,$location_from_id);
+		$data["location_to"] = $this->mlocation->get($player_id,$location_to_id);
+		$data["timer"] = $timer;
+
+		$this->load->view("content/vtravel",$data);
 	}
 }	
 ?>

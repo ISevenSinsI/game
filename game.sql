@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2014 at 09:55 PM
+-- Generation Time: Oct 18, 2014 at 06:23 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -32,22 +32,23 @@ CREATE TABLE IF NOT EXISTS `actions` (
   `level_required` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `item_type_id` int(11) NOT NULL,
+  `item_subtype_required_id` int(11) NOT NULL,
   `base_time` int(3) NOT NULL,
   `img_path` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `actions`
 --
 
-INSERT INTO `actions` (`id`, `skill_id`, `level_required`, `name`, `description`, `item_type_id`, `base_time`, `img_path`, `created`, `updated`, `deleted`) VALUES
+INSERT INTO `actions` (`id`, `skill_id`, `level_required`, `name`, `description`, `item_subtype_required_id`, `base_time`, `img_path`, `created`, `updated`, `deleted`) VALUES
 (1, 3, 0, 'Work at dock', 'You are currently loading and unloading the ships.', 0, 80, 'assets/img/actions/luck/veghel_docks.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 4, 0, 'Cut wood', 'You are currenctly cutting wood.', 1, 20, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(2, 4, 0, 'Cut wood', 'You are currenctly cutting wood.', 2, 20, 'assets/img/actions/woodcutting/zeeland_woodcutting.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 5, 0, 'Net Fishing', 'You are currently fishing with your net.\r\n', 3, 20, 'assets/img/actions/fishing/veghel_small_net_fising.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `actions_locations` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `actions_locations`
@@ -71,7 +72,8 @@ CREATE TABLE IF NOT EXISTS `actions_locations` (
 
 INSERT INTO `actions_locations` (`id`, `action_id`, `location_id`, `created`, `updated`, `deleted`) VALUES
 (1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 2, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(2, 2, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 3, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -96,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `actions_rewards` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `actions_rewards`
@@ -104,7 +106,8 @@ CREATE TABLE IF NOT EXISTS `actions_rewards` (
 
 INSERT INTO `actions_rewards` (`id`, `action_id`, `exp`, `exp_chance`, `currency`, `currency_chance`, `item_1_id`, `item_1_amount`, `item_1_chance`, `item_2_id`, `item_2_amount`, `item_2_chance`, `created`, `updated`, `deleted`) VALUES
 (1, 1, 10, '50.00', 8, '100.00', 0, '0', '0.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 2, 20, '100.00', 0, '0.00', 2, '1::1::2', '100.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(2, 2, 20, '100.00', 0, '0.00', 2, '1::1::2', '100.00', 0, '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 3, 18, '100.00', 0, '0.00', 5, '1::1::1::2', '100.00', 0, '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -261,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `player_id`, `item_1_id`, `item_2_id`, `item_3_id`, `item_4_id`, `item_5_id`, `item_6_id`, `item_7_id`, `item_8_id`, `item_9_id`, `item_10_id`, `item_11_id`, `item_12_id`, `item_13_id`, `item_14_id`, `item_15_id`, `item_16_id`, `item_17_id`, `item_18_id`, `item_19_id`, `item_20_id`, `created`, `updated`, `deleted`, `item_1_amount`, `item_2_amount`, `item_3_amount`, `item_4_amount`, `item_5_amount`, `item_6_amount`, `item_7_amount`, `item_8_amount`, `item_9_amount`, `item_10_amount`, `item_11_amount`, `item_12_amount`, `item_13_amount`, `item_14_amount`, `item_15_amount`, `item_16_amount`, `item_17_amount`, `item_18_amount`, `item_19_amount`, `item_20_amount`) VALUES
-(1, 1, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 209, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 269, 1, 1, 130, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -274,6 +277,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `name` varchar(30) NOT NULL,
   `description` varchar(255) NOT NULL,
   `type_id` int(11) NOT NULL,
+  `subtype_id` int(11) NOT NULL,
   `skill_required` int(11) NOT NULL,
   `level_required` int(11) NOT NULL,
   `equip_location_id` int(11) NOT NULL,
@@ -284,16 +288,18 @@ CREATE TABLE IF NOT EXISTS `items` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `description`, `type_id`, `skill_required`, `level_required`, `equip_location_id`, `bonus_1_id`, `bonus_2_id`, `img_path`, `created`, `updated`, `deleted`) VALUES
-(1, 'Stone axe', 'Used to gather wood.', 1, 4, 1, 1, 0, 0, 'assets/img/items/woodcutting/stone-axe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Logs', 'This could keep you warm<br/> or make you a house.', 3, 0, 0, 0, 0, 0, 'assets/img/items/woodcutting/logs.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'Stone pickaxe', 'Used to gather minerals and stone.', 1, 5, 1, 1, 0, 0, 'assets/img/items/mining/stone-pickaxe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `items` (`id`, `name`, `description`, `type_id`, `subtype_id`, `skill_required`, `level_required`, `equip_location_id`, `bonus_1_id`, `bonus_2_id`, `img_path`, `created`, `updated`, `deleted`) VALUES
+(1, 'Stone axe', 'Used to gather wood.', 1, 2, 4, 1, 1, 0, 0, 'assets/img/items/woodcutting/stone-axe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Logs', 'This could keep you warm<br/> or make you a house.', 3, 0, 0, 0, 0, 0, 0, 'assets/img/items/woodcutting/logs.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Stone pickaxe', 'Used to gather minerals and stone.', 1, 1, 6, 1, 1, 0, 0, 'assets/img/items/mining/stone-pickaxe.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Fishing net', 'You can try to catch small fish with this.', 1, 3, 5, 1, 1, 0, 0, 'assets/img/items/fishing/fishing-net.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Minnow', 'A very little fish.', 3, 0, 0, 0, 0, 0, 0, 'assets/img/items/fishing/minnow.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -310,18 +316,39 @@ CREATE TABLE IF NOT EXISTS `items_equiped` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `items_equiped`
 --
 
 INSERT INTO `items_equiped` (`id`, `player_id`, `item_id`, `equip_location_id`, `created`, `updated`, `deleted`) VALUES
-(1, 1, 3, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 1, 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(6, 1, 4, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_subtypes`
+--
+
+CREATE TABLE IF NOT EXISTS `item_subtypes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  `deelted` datetime NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `item_subtypes`
+--
+
+INSERT INTO `item_subtypes` (`id`, `type_id`, `name`, `created`, `updated`, `deelted`) VALUES
+(1, 1, 'Pickaxe', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 'Hatchet', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 3, 'fishing_net', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -402,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `players` (
 --
 
 INSERT INTO `players` (`id`, `username`, `currency`, `action_id`, `action_end`, `last_ip`, `email`, `password`, `location_id`, `rank_id`, `created`, `updated`, `deleted`) VALUES
-(1, 'ISevenSinsI', 1360, 1, 1412881691, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 1, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 'ISevenSinsI', 1360, 3, 9999900, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 1, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'xfirenl', 0, 0, 0, '127.0.0.1', '', '275963ee13631dfd2ebc91589d2ade', 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -418,17 +445,18 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
   `exp` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `players_skills`
 --
 
 INSERT INTO `players_skills` (`id`, `player_id`, `skill_id`, `exp`, `level`) VALUES
-(1, 1, 1, 1533, 6),
-(2, 1, 2, 12140, 15),
+(1, 1, 1, 2357, 7),
+(2, 1, 2, 13940, 16),
 (3, 1, 3, 1031, 5),
-(4, 1, 4, 1701, 6);
+(4, 1, 4, 2701, 8),
+(5, 1, 5, 2575, 7);
 
 -- --------------------------------------------------------
 
@@ -473,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `skills` (
   `updated` datetime NOT NULL,
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `skills`
@@ -483,7 +511,8 @@ INSERT INTO `skills` (`id`, `name`, `created`, `updated`, `deleted`) VALUES
 (1, 'Character', '2014-09-25 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'Travelling', '2014-09-25 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 'Luck', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'woodcutting', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(4, 'Woodcutting', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Fishing', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -495,6 +524,7 @@ CREATE TABLE IF NOT EXISTS `travel_scheme` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `location_from_id` int(11) NOT NULL,
   `location_to_id` int(11) NOT NULL,
+  `img_path` varchar(255) NOT NULL,
   `exp` int(11) NOT NULL,
   `base_time` int(11) NOT NULL,
   `created` datetime NOT NULL,
@@ -507,9 +537,9 @@ CREATE TABLE IF NOT EXISTS `travel_scheme` (
 -- Dumping data for table `travel_scheme`
 --
 
-INSERT INTO `travel_scheme` (`id`, `location_from_id`, `location_to_id`, `exp`, `base_time`, `created`, `updated`, `deleted`) VALUES
-(1, 1, 2, 50, 20, '2014-09-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 2, 3, 70, 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `travel_scheme` (`id`, `location_from_id`, `location_to_id`, `img_path`, `exp`, `base_time`, `created`, `updated`, `deleted`) VALUES
+(1, 1, 2, 'assets/img/travelling/travel_scheme_1.png', 50, 20, '2014-09-16 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 3, 'b', 70, 20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -6,6 +6,7 @@ Class MAction extends CI_Model{
         parent::__construct();
         $this->load->model("mluck");
         $this->load->model("mwoodcutting");
+        $this->load->model("mfishing");
     }
    	public function get_timer($id){
    		$action = new Action($id);
@@ -30,12 +31,23 @@ Class MAction extends CI_Model{
 	public function do_action($player_id, $action_id){
 		$action = new Action($action_id);
 		$player = new Player($player_id);
-		$player->action_id = $action_id;
-		$player->save();
 
-		$timer = $this->calculate_timer($player_id, $action_id);
+		// Check if have required lvl.	
+		if($this->mplayer->check_required_level($player_id,$action->skill_id, $action->level_required)){
+			// Check if item is equiped
+			if($this->mitem->check_subtype_equiped($player_id, $action->item_subtype_required_id)){
+				$player->action_id = $action_id;
+				$player->save();
 
-		return $timer;
+				$timer = $this->calculate_timer($player_id, $action_id);
+
+				return $timer;
+			} else {
+				return "item";
+			}
+		} else {
+			return "level";
+		}
 	}
 
 	public function calculate_timer($player_id, $action_id){
@@ -47,15 +59,17 @@ Class MAction extends CI_Model{
 		if($action->skill_id == "4"){
 			$timer = $this->mwoodcutting->calculate_timer($player_id, $action_id);
 		}
+		if($action->skill_id == "5"){
+			$timer = $this->mfishing->calculate_timer($player_id,$action_id);
+		}
 
 		return $timer;
 	}
 
 	public function complete($player_id, $action_id){
-		$check = $this->mplayer->check_action_end($player_id);
 		$data = array();
 
-		if($check === true){
+		if($this->mplayer->check_action_end($player_id)){
 			$player = new Player($player_id);
 			$player->action_id = 0;
 			$player->save();
