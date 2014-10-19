@@ -7,6 +7,7 @@ class Ajax extends CI_Controller
     	$this->load->model("mskill");
     	$this->load->model("mplayer");
     	$this->load->model("mbuilding");
+    	$this->load->model("mshop");
    	}
 
 	public function get_character_by(){
@@ -131,10 +132,60 @@ class Ajax extends CI_Controller
 	}
 
 	public function load_building_view($building_id){
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+
 		$data["building"] = $this->mbuilding->get($building_id);
 		$data["other_users"] = array();
 
 		$this->load->view("content/vbuilding",$data);
+	}
+
+	public function load_shop_view($shop_id){
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+
+		$data["shop"] = $this->mshop->get($shop_id);
+		$data["action"] = "";
+		
+		if(isSet($_SESSION["shop"])){
+			$data["action"] = $_SESSION["shop"];
+			unset($_SESSION["shop"]);
+		}
+
+		$this->load->view("content/vshop", $data);
+	}
+
+	public function buy_item(){
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+
+		$shop_id = $this->input->post("shop_id");
+		$player_id = $this->input->post("player_id");
+		$item_id = $this->input->post("item_id");
+		$amount = $this->input->post("amount");	
+
+		if($amount > 0){
+			$sold = $this->mshop->sell_item($shop_id, $player_id, $item_id, $amount);
+		} else {
+			$sold = "Please insert a correct amount.";
+		}
+
+		echo json_encode($sold);
+	}
+
+	public function set_shop_action(){
+		$_SESSION["shop"] = $this->input->post("action");
+		return true;
 	}
 }	
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2014 at 06:07 PM
+-- Generation Time: Oct 20, 2014 at 01:43 AM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -325,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `player_id`, `item_1_id`, `item_2_id`, `item_3_id`, `item_4_id`, `item_5_id`, `item_6_id`, `item_7_id`, `item_8_id`, `item_9_id`, `item_10_id`, `item_11_id`, `item_12_id`, `item_13_id`, `item_14_id`, `item_15_id`, `item_16_id`, `item_17_id`, `item_18_id`, `item_19_id`, `item_20_id`, `created`, `updated`, `deleted`, `item_1_amount`, `item_2_amount`, `item_3_amount`, `item_4_amount`, `item_5_amount`, `item_6_amount`, `item_7_amount`, `item_8_amount`, `item_9_amount`, `item_10_amount`, `item_11_amount`, `item_12_amount`, `item_13_amount`, `item_14_amount`, `item_15_amount`, `item_16_amount`, `item_17_amount`, `item_18_amount`, `item_19_amount`, `item_20_amount`) VALUES
-(1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 146, 1, 1, 12, 61, 9, 1, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13, 175, 1, 1, 8, 61, 9, 1, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -388,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `items_equiped` (
 --
 
 INSERT INTO `items_equiped` (`id`, `player_id`, `item_id`, `equip_location_id`, `created`, `updated`, `deleted`) VALUES
-(6, 1, 8, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(6, 1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -495,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `players` (
 --
 
 INSERT INTO `players` (`id`, `username`, `currency`, `action_id`, `action_end`, `last_ip`, `email`, `password`, `location_id`, `rank_id`, `created`, `updated`, `deleted`) VALUES
-(1, 'ISevenSinsI', 1360, 5, 9999900, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 2, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 'ISevenSinsI', 469, 2, 9999900, '127.0.0.1', 'Rrreaper@hotmail.com', 'db20854698119ded8a81b70634f908', 1, 1, '2014-09-26 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'xfirenl', 0, 0, 0, '127.0.0.1', '', '275963ee13631dfd2ebc91589d2ade', 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -518,13 +518,13 @@ CREATE TABLE IF NOT EXISTS `players_skills` (
 --
 
 INSERT INTO `players_skills` (`id`, `player_id`, `skill_id`, `exp`, `level`) VALUES
-(1, 1, 1, 2380, 7),
-(2, 1, 2, 13990, 16),
+(1, 1, 1, 2536, 7),
+(2, 1, 2, 14330, 17),
 (3, 1, 3, 1031, 5),
-(4, 1, 4, 2701, 8),
+(4, 1, 4, 3161, 8),
 (5, 1, 5, 2647, 7),
 (9, 1, 6, 916, 5),
-(10, 1, 7, 364, 3);
+(10, 1, 7, 438, 3);
 
 -- --------------------------------------------------------
 
@@ -555,6 +555,83 @@ CREATE TABLE IF NOT EXISTS `resources` (
   `deleted` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops`
+--
+
+CREATE TABLE IF NOT EXISTS `shops` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `img_path` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  `deleted` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `shops`
+--
+
+INSERT INTO `shops` (`id`, `name`, `img_path`, `created`, `updated`, `deleted`) VALUES
+(1, 'General Store', 'assets/img/buildings/shops/veghel_general_store.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops_items`
+--
+
+CREATE TABLE IF NOT EXISTS `shops_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `buy_price` int(11) NOT NULL,
+  `sell_price` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  `deleted` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `shops_items`
+--
+
+INSERT INTO `shops_items` (`id`, `shop_id`, `item_id`, `buy_price`, `sell_price`, `created`, `updated`, `deleted`) VALUES
+(1, 1, 1, 0, 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 2, 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 3, 0, 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 1, 4, 0, 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 6, 4, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 1, 8, 0, 99, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 1, 5, 2, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shops_locations`
+--
+
+CREATE TABLE IF NOT EXISTS `shops_locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  `deleted` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `shops_locations`
+--
+
+INSERT INTO `shops_locations` (`id`, `shop_id`, `location_id`, `created`, `updated`, `deleted`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

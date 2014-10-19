@@ -1,4 +1,4 @@
-<div class="actions_wrapper pure-u-2-3">
+<div class="actions_wrapper pure-u-3-4">
 	<div class="actions_content pure-u-1">
 		<h3><?= $action["name"];?></h3>
 		<div class="action_image">

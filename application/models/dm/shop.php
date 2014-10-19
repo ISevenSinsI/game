@@ -1,16 +1,19 @@
 <?php
 
-class Item extends DataMapper {
+class Shop extends DataMapper {
 
-    var $table = "items";
+    var $table = "shops";
     
     var $has_one = array();
     
     var $has_many = array(
-    	"shop" => array(
-            "join_table" => "shops_items"
-        ),
-	);
+    	"item" => array(
+    		"join_table" => "shops_items"
+    	),
+    	"location" => array(
+    		"join_table" => "shops_locations"
+    	),
+    );
 
     var $validation = array();
 

@@ -17,8 +17,20 @@ class MLocation extends CI_Model
 		$data["players_on_location"] = $this->get_players_on_location($location_id);
 		$data["actions"] = $this->maction->get_by_location($location_id);
 		$data["buildings"] = $this->get_buildings_by_location($location_id);
+		$data["shops"] = $this->get_shops_by_location($location_id);
 
 		return $data;
+	}
+
+	public function get_shops_by_location($id){
+		$location = new location($id);
+		$data = array();
+
+		foreach($location->shop->get() as $_shop){
+			$data[$_shop->name] = $_shop->to_array();
+ 		}
+
+ 		return $data;
 	}
 
 	public function get_buildings_by_location($id){
@@ -26,7 +38,7 @@ class MLocation extends CI_Model
 		$data = array();
 
 		foreach($location->buildings->get() as $_building){
-			$data[$_building->id] = $_building->to_array();
+			$data[$_building->name] = $_building->to_array();
 		}
 
 		return $data;

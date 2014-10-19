@@ -23,11 +23,18 @@
 </div>
 <div class="pure-u-1 buildings">
 	<h4>Buildings</h4>
-
 	<?php if(isSet($location["buildings"])): ?>
 		<?php foreach($location["buildings"] as $building): ?>
 			<div class="building" data-building_id="<?= $building["id"]; ?>">
 				<?= $building["name"]; ?>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<?php if(isSet($location["shops"])): ?>
+		<?php foreach($location["shops"] as $shop): ?>
+			<div class="shop" data-shop_id="<?= $shop["id"]; ?>">
+				<?= $shop["name"]; ?>
 			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>

@@ -14,6 +14,9 @@ class Location extends DataMapper {
         "building" => array(
             "join_table" => "buildings_locations",
         ),
+        "shop" => array(
+            "join_table" => "shops_locations",
+        ),
     );
 
     var $validation = array();

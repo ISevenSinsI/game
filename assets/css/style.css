@@ -260,11 +260,12 @@ body{
 	border-bottom: 1px solid black;
 	padding-left: 5%;
 }
-.building{
+.shop,.building{
 	font-size: 14px;
 	padding-left: 5%;
 	cursor: pointer;
 }
+
 /**********************/
 /*      vlocation     */
 /**********************/
@@ -290,7 +291,32 @@ body{
 	text-align: center;
 }
 /**********************/
-/*     vbuidling      */
+/*       vshop        */
+/**********************/
+.shop_buy h3{
+	margin-left: 5%;
+}
+.shop_buy_table{
+	margin-left: 5%;
+}
+.shop_main{
+	width: 46%;
+}
+.shop_image img{
+	max-height: 460px;
+	width: 100%;
+}
+.shop_input{
+	margin-left: 10%;
+	width: 87.5%;
+}
+.shop_button{
+	background: rgba(9, 10, 27, 0.43);
+	color: white;
+	font-weight: bold;
+}
+/**********************/
+/*     vbuilding      */
 /**********************/
 .building_actions_wrapper{
 	padding: 0px 0px 0px 10px;

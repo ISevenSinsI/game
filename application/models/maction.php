@@ -159,8 +159,7 @@ Class MAction extends CI_Model{
 				$give = $this->mitem->give_item($player_id, $reward->item_1_id, $item_amount);
 
 				$item = new Item($reward->item_1_id);
-				$data["item_1"]["name"] = $item->name; 
-				$data["item_1"]["amount"] = $item_amount;
+				$data["item_1"] = "You have obtained " . $item_amount . " " . $item->name . "."; 
 			}	
 		}
 		if($reward->item_2_id > 0 && $reward->item_2_chance > 0){
@@ -177,8 +176,7 @@ Class MAction extends CI_Model{
 				$give = $this->mitem->give_item($player_id, $reward->item_2_id, $item_amount);
 
 				$item = new Item($reward->item_2_id);
-				$data["item_2"]["name"] = $item->name; 
-				$data["item_2"]["amount"] = $item_amount;
+				$data["item_2"] = "You have obtained " . $item_amount . " " . $item->name . "."; 
 			}	
 		}
 
