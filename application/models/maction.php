@@ -7,6 +7,14 @@ Class MAction extends CI_Model{
         $this->load->model("mluck");
         $this->load->model("mwoodcutting");
         $this->load->model("mfishing");
+        $this->load->model("mmining");
+        $this->load->model("mcooking");
+    }
+
+    public function get_name_by_id($id){
+    	$action = new Action($id);
+
+    	return $action->name;
     }
    	public function get_timer($id){
    		$action = new Action($id);
@@ -31,6 +39,23 @@ Class MAction extends CI_Model{
 	public function do_action($player_id, $action_id){
 		$action = new Action($action_id);
 		$player = new Player($player_id);
+
+		
+		// Check if item is needed
+		if($action->item_used_1_id > 0){
+			// Check item in inventory, and if enough items
+			if(!$this->mitem->in_inventory($player_id, $action->item_used_1_id, $action->item_used_1_amount)){
+				return "material";
+			}	
+		}
+		
+		// Check if item is needed
+		if($action->item_used_2_id > 0){
+			// Check item in inventory, and if enough items
+			if(!$this->mitem->in_inventory($player_id, $action->item_used_2_id, $action->item_used_2_amount)){
+				return "material";
+			}	
+		}
 
 		// Check if have required lvl.	
 		if($this->mplayer->check_required_level($player_id,$action->skill_id, $action->level_required)){
@@ -62,7 +87,12 @@ Class MAction extends CI_Model{
 		if($action->skill_id == "5"){
 			$timer = $this->mfishing->calculate_timer($player_id,$action_id);
 		}
-
+		if($action->skill_id == "6"){
+			$timer = $this->mmining->calculate_timer($player_id,$action_id);	
+		}
+		if($action->skill_id == "7"){
+			$timer = $this->mcooking->calculate_timer($player_id,$action_id);	
+		}
 		return $timer;
 	}
 
@@ -78,9 +108,22 @@ Class MAction extends CI_Model{
 			$reward = new Action_Reward();
 			$reward->where("action_id",$action_id)->get();
 
-			$data["exp"] = $this->calculate_experience($player_id,$reward->id);
+			if(isset($action->item_used_1_id)){
+				$use_item_1 = $this->mitem->delete_item_from_inventory($player_id, $action->item_used_1_id, $action->item_used_1_amount);
+			}
+			if(isset($action->item_used_2_id)){
+				$use_item_2 = $this->mitem->delete_item_from_inventory($player_id, $action->item_used_2_id, $action->item_used_2_amount);
+			}	
+
+			if($action->skill_id == "7"){
+				$data = $this->mcooking->calculate_reward_change($player_id, $reward->id);
+			} else {
+				$data["items"] = $this->calculate_reward_change($player_id, $reward->id);
+				$data["exp"] = $this->calculate_experience($player_id,$reward->id);
+			}
+
 			$data["currency"] = $this->calculate_currency($player_id, $reward->id);
-			$data["items"] = $this->calculate_reward_change($player_id, $reward->id);
+			
 		}
 
 		return $data;
@@ -89,10 +132,16 @@ Class MAction extends CI_Model{
 	public function calculate_reward_change($player_id, $reward_id){
 		$reward = new Action_Reward($reward_id);
 		$player = new Player($player_id);
-		
-		$luck = $player->skill->where("id", "3")->include_join_fields()->get();
-		
-		$chance_increase = explode(".", $luck->join_level * 0.25)[0];
+		$action = new Action($reward->action_id);
+
+		if($action->skill_id == 7){
+			$cooking = $player->skill->where("id","7")->include_join_fields()->get();
+			$chance_increase = $cooking->join_level - $action->level_required;
+		} else {
+			$luck = $player->skill->where("id", "3")->include_join_fields()->get();
+			$chance_increase = explode(".", $luck->join_level * 0.25)[0];
+		}
+	
 
 		$data = array();
 
@@ -116,7 +165,7 @@ Class MAction extends CI_Model{
 		}
 		if($reward->item_2_id > 0 && $reward->item_2_chance > 0){
 			$rand = rand(0,100);
-			if($rand <= ($reward->item_1_chance + $chance_increase)){
+			if($rand <= ($reward->item_2_chance + $chance_increase)){
 				$amount = explode("::", $reward->item_2_amount);
 				$rand = rand(0, count($amount));
 

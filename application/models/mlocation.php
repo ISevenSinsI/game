@@ -16,6 +16,19 @@ class MLocation extends CI_Model
 		$data["travel_options"] = $this->get_travel_options_by($player_id,$location_id);
 		$data["players_on_location"] = $this->get_players_on_location($location_id);
 		$data["actions"] = $this->maction->get_by_location($location_id);
+		$data["buildings"] = $this->get_buildings_by_location($location_id);
+
+		return $data;
+	}
+
+	public function get_buildings_by_location($id){
+		$location = new location($id);
+		$data = array();
+
+		foreach($location->buildings->get() as $_building){
+			$data[$_building->id] = $_building->to_array();
+		}
+
 		return $data;
 	}
 

@@ -1,19 +1,18 @@
 <?php
 
-class Location extends DataMapper {
+class Building extends DataMapper {
 
-    var $table = "locations";
+    var $table = "buildings";
     
     var $has_one = array();
     
     var $has_many = array(
-        "player",
-        "action" => array(
-            "join_table" => "actions_locations"
-        ),
-        "building" => array(
-            "join_table" => "buildings_locations",
-        ),
+    	"action" => array(
+    		"join_table" => "buildings"
+    	),
+    	"location" => array(
+    		"join_table" => "buildings_locations"
+    	),
     );
 
     var $validation = array();

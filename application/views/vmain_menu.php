@@ -13,13 +13,24 @@
 </div>
 <div class="pure-u-1 actions">
 	<h4>Actions</h4>
-	<? if(isSet($location["actions"])): ?>
+	<?php if(isSet($location["actions"])): ?>
 		<?php foreach($location["actions"] as $_action): ?>
 			<div class="action_option"  data-action_id="<?= $_action["id"]; ?>">
 				<?= $_action["name"];?>
 			</div>
 		<?php endforeach; ?>
-	<? endif ?>
+	<?php endif ?>
+</div>
+<div class="pure-u-1 buildings">
+	<h4>Buildings</h4>
+
+	<?php if(isSet($location["buildings"])): ?>
+		<?php foreach($location["buildings"] as $building): ?>
+			<div class="building" data-building_id="<?= $building["id"]; ?>">
+				<?= $building["name"]; ?>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </div>
 <div class="pure-u-1 inventory">
 	<h4>Inventory</h4>

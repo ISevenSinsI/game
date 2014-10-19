@@ -6,6 +6,7 @@ class Ajax extends CI_Controller
     	$this->load->model("mlocation");
     	$this->load->model("mskill");
     	$this->load->model("mplayer");
+    	$this->load->model("mbuilding");
    	}
 
 	public function get_character_by(){
@@ -81,7 +82,8 @@ class Ajax extends CI_Controller
 
 		echo json_encode($data);
 	}
-	public function load_action($action_id, $player_id){
+
+	public function load_action($action_id, $player_id ,$building = false){
 		$data["action"] = $action = $this->maction->get($action_id);
 		$data["action"]["timer"] = $this->maction->calculate_timer($player_id, $action_id);
 		$data["action"]["other_users"] = $this->maction->get_users_working_here($player_id, $action_id);
@@ -126,6 +128,13 @@ class Ajax extends CI_Controller
 		$data["timer"] = $timer;
 
 		$this->load->view("content/vtravel",$data);
+	}
+
+	public function load_building_view($building_id){
+		$data["building"] = $this->mbuilding->get($building_id);
+		$data["other_users"] = array();
+
+		$this->load->view("content/vbuilding",$data);
 	}
 }	
 ?>

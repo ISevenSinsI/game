@@ -17,7 +17,7 @@ class MItem extends CI_Model
 		$item_slot = $item->equip_location_id;
 
 		// Checken of item in inventory is.
-		if($this->mplayer->in_inventory($player_id, $item_id)){
+		if($this->in_inventory($player_id, $item_id)){
 			// Checken of item equipable is.
 			if($this->check_if_equipable($item_id)){
 				$item_equiped = new Item_equiped();
@@ -144,5 +144,39 @@ class MItem extends CI_Model
 			}
 		}
 		return false;
+	}
+
+	public function in_inventory($player_id,$item_id, $amount = 0){
+		$inventory = $this->mplayer->get_inventory($player_id);
+
+		foreach($inventory as $key => $_inventory){
+			if($_inventory["id"] == $item_id){
+				if($amount == 0){
+					return true;
+				} else {
+					if($_inventory["amount"] >= $amount){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public function delete_item_from_inventory($player_id, $item_id, $amount){
+		$inventory = new Inventory();
+		$inventory->where("player_id", $player_id)->get();
+
+		$temp_inventory = $this->mplayer->get_inventory($player_id);	
+
+		foreach($temp_inventory as $key => $_temp_inventory){
+			if($_temp_inventory["id"] == $item_id){
+				$string = "item_".$key."_amount";
+				$old_amount = $inventory->$string;
+				$new_amount = $old_amount - $amount;
+				$inventory->$string = $new_amount;
+				$inventory->save();
+			}
+		}
 	}
 }

@@ -29,19 +29,7 @@
 <script>
 	clear_all_intervals();
 	one_time = false;
-
-	$(".right_menu").on("hover", ".skill_span",function(){
-		id = $(this).data("id");
-		elem = $(".skill_exp[data-id='"+id+"']");
-		current = elem.css("display");
-
-		if(current == "none"){
-			elem.css("display","block");
-		} else {
-			elem.css("display","none");
-		}
-	});
-
+	
 	$(".main_menu").on("click", ".inventory_slot",function(){
 		if(one_time == false){
 			one_time = true;
@@ -57,12 +45,6 @@
 		}
 	});
 
-
-	$(".main_menu").on("click", ".town_header", function(){
-		clear_all_intervals();
-		reload_content();
-	});
-
 	$(".main_menu").on("click", ".action_option", function(){
 		if(one_time == false){
 			one_time = true;
@@ -76,7 +58,7 @@
 			player_id = <?= $player["id"] ?>;
 			action_id = $(this).data("action_id");
 
-			do_action(player_id, action_id);
+			do_action(player_id, action_id,0);
 		}
 	});
 

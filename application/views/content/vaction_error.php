@@ -11,6 +11,8 @@
 				You do not have the required item type equiped to work here.
 			<?php elseif($error == 2): ?>
 				You do not meet the required level criteria to work here.
+			<?php elseif($error == 3): ?>
+				You do not have the required materials.
 			<?php endif;?>
 		</div>
 	</div>

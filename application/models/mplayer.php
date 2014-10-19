@@ -80,20 +80,20 @@ class MPlayer extends CI_Model{
 		return $data;
 	}
 
-	public function in_inventory($player_id,$item_id){
-		$inventory = $this->get_inventory($player_id);
-
-		foreach($inventory as $key => $_inventory){
-			if($_inventory["id"] == $item_id){
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public function check_required_level($player_id,$skill_id, $required){
 		$player = new Player($player_id);
 		$skill = $player->skill->where("id", $skill_id)->include_join_fields()->get();
+
+		if($skill->join_level == "" && $skill->join_exp == ""){
+			$skill->id =  $skill_id;
+			$player->save($skill);
+
+			$skill->set_join_field($player, "player_id", $player_id);
+			$skill->set_join_field($player, "level", 1);
+			$skill->set_join_field($player, "exp", 1);
+			
+			$skill = $player->skill->where("id", $skill_id)->include_join_fields()->get();
+		}
 
 		if($skill->join_level >= $required){
 			return true;

@@ -1,6 +1,6 @@
 <?php
 
-class MFishing extends CI_Model
+class MMining extends CI_Model
 {
 	public function calculate_timer($player_id, $action_id){
 		$action = new Action($action_id);
@@ -18,7 +18,7 @@ class MFishing extends CI_Model
 		$timer = $action->base_time + $extra_time - $timer_decrease;
 
 		if($timer < 20){
-			$timer = 1;
+			$timer = 20;
 		}
 
 		return $timer;
