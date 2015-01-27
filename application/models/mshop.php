@@ -25,12 +25,12 @@ Class MShop extends CI_Model{
 		return $data;
 	}
 
-	public function sell_item($shop_id, $player_id, $item_id, $amount){
+	public function buy_item($shop_id, $player_id, $item_id, $amount){
 		$player = new Player($player_id);
 
 		$shop = new Shop($shop_id);
 		$item = $shop->item->where("id", $item_id)->include_join_fields()->get();
-		$price = $item->join_sell_price;
+		$price = $item->join_buy_price;
 
 		$total_price = $price * $amount;
 

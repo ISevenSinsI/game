@@ -12,7 +12,7 @@
 					</tr>
 				</thead>	
 				<tbody>
-					<?php foreach($shop["sell"] as $key => $item): ?>
+					<?php foreach($shop["buy"] as $key => $item): ?>
 						<tr>
 							<td style="text-align:center;"><?= $item["price"]; ?></td>
 							<td style="width: 40%; padding-left: 5%"><?= $item["name"]; ?></td>
@@ -32,8 +32,10 @@
 				<img src="<?= $shop['image']; ?>"/>
 			<?php endif; ?>
 		</div>
-		<?php if(isSet($action)):?>
-			<?= $action; ?>
+		<?php if(isset($action) && $action != ""):?>
+			<div class="action_description" style="text-align: center;">
+				<?= $action; ?>
+			</div>
 		<?php endif; ?>
 	</div>
 
@@ -50,7 +52,7 @@
 					</tr>
 				</thead>	
 				<tbody>
-					<?php foreach($shop["buy"] as $item): ?>
+					<?php foreach($shop["sell"] as $item): ?>
 						<tr>
 							<td style="text-align:center;"><?= $item["price"]; ?></td>
 							<td style="width: 40%; padding-left: 5%"><?= $item["name"]; ?></td>
