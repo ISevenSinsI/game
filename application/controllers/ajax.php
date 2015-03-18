@@ -18,7 +18,7 @@ class Ajax extends CI_Controller
 	public function go_to_location(){
 		$player_id = $this->input->post("player_id");
 		$location_from_id = $this->input->post("location_from_id");
-		$location_to_id = $this->input->post("logvcation_to_id");
+		$location_to_id = $this->input->post("location_to_id");
 
 		$timer = $this->mlocation->go_to_location($player_id,$location_from_id, $location_to_id);
 
@@ -132,39 +132,49 @@ class Ajax extends CI_Controller
 	}
 
 	public function load_building_view($building_id){
-		if($this->mplayer->check_building_authentication($building_id)){
-			$data["building"] = $this->mbuilding->get($building_id);
-			$data["other_users"] = array();
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
 
-			$this->load->view("content/vbuilding",$data);
-		} else {
-			return "False location, hackerpl0x";
-		}
+		$data["building"] = $this->mbuilding->get($building_id);
+		$data["other_users"] = array();
+
+		$this->load->view("content/vbuilding",$data);
 	}
 
 	public function load_shop_view($shop_id){
-		if($this->mplayer->check_shop_authentication($shop_id)){
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
 
-			$data["shop"] = $this->mshop->get($shop_id);
-			$data["action"] = "";
-			
-			if(isSet($_SESSION["shop"])){
-				$data["action"] = $_SESSION["shop"];
-				unset($_SESSION["shop"]);
-			}
-
-			$this->load->view("content/vshop", $data);
-		} else {
-			return "False location";
+		$data["shop"] = $this->mshop->get($shop_id);
+		$data["action"] = "";
+		
+		if(isSet($_SESSION["shop"])){
+			$data["action"] = $_SESSION["shop"];
+			unset($_SESSION["shop"]);
 		}
+
+		$this->load->view("content/vshop", $data);
 	}
 
 	public function buy_item(){
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+		// MAKE CHECK TO SEE IF PERSON IS AT RIGHT LOCATION TO PREVENT SQL INJECTIONS
+
 		$shop_id = $this->input->post("shop_id");
 		$player_id = $this->input->post("player_id");
 		$item_id = $this->input->post("item_id");
 		$amount = $this->input->post("amount");	
 
+<<<<<<< HEAD
 		if($this->mplayer->check_authentication($player_id)){
 			if($this->mplayer->check_shop_authentication($shop_id)){
 				if($amount > 0){
@@ -198,8 +208,12 @@ class Ajax extends CI_Controller
 			} else {
 				return "Don't try injections. =]";
 			}
+=======
+		if($amount > 0){
+			$sold = $this->mshop->sell_item($shop_id, $player_id, $item_id, $amount);
+>>>>>>> parent of a3f539c... dingen enzo
 		} else {
-			return "Dude, don't try SQL injections. =]";
+			$sold = "Please insert a correct amount.";
 		}
 
 		echo json_encode($sold);

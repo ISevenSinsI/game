@@ -53,7 +53,7 @@
 					 		<span class='item_description'>
 					 			<?= $_inventory["description"] ?>
 					 		</span>
-					 		"/></div>
+					 		"/>></div>
 				<?php endif;?>
 
 				<img class="item_image" src="<?= $_inventory['img_path'] ?>" 

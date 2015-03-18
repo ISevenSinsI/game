@@ -102,38 +102,5 @@ class MPlayer extends CI_Model{
 		}
 		
  	}
-
- 	public function check_authentication($player_id){
- 		if($player_id == $_SESSION["user"]["id"]){
- 			return true;
- 		} else{
- 			return false;
- 		}
- 	}
-
- 	public function check_shop_authentication($shop_id){
- 		$shop = new Shop($shop_id);
- 		$location = $shop->location->get();
-
- 		if($_SESSION["user"]["location_id"] === $location->id){
- 			return true;
- 		} else {
- 			return "Don't try fucking around with SQL injections =]";
- 		}
- 	}
-
- 	public function check_building_authentication($building_id){
- 		$building = new Building($building_id);
- 		$location = $building->location->get();
-
- 		if($_SESSION["user"]["location_id"] === $location->id){
- 			return true;
- 		} else {
- 			return "Don't try fucking around with SQL injections =]";
- 		}
- 	}
 }
 ?>	
-
-
-
