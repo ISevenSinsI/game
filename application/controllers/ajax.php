@@ -168,7 +168,30 @@ class Ajax extends CI_Controller
 		if($this->mplayer->check_authentication($player_id)){
 			if($this->mplayer->check_shop_authentication($shop_id)){
 				if($amount > 0){
-					$sold = $this->mshop->buy_item($shop_id, $player_id, $item_id, $amount);
+					$bought = $this->mshop->buy_item($shop_id, $player_id, $item_id, $amount);
+				} else {
+					$bought = "Please insert a correct amount.";
+				}
+			} else {
+				return "Don't try injections. =]";
+			}
+		} else {
+			return "Dude, don't try SQL injections. =]";
+		}
+
+		echo json_encode($bought);
+	}
+
+	public function sell_item(){
+		$shop_id = $this->input->post("shop_id");
+		$player_id = $this->input->post("player_id");
+		$item_id = $this->input->post("item_id");
+		$amount = $this->input->post("amount");	
+
+		if($this->mplayer->check_authentication($player_id)){
+			if($this->mplayer->check_shop_authentication($shop_id)){
+				if($amount > 0){
+					$sold = $this->mshop->sell_item($shop_id, $player_id, $item_id, $amount);
 				} else {
 					$sold = "Please insert a correct amount.";
 				}

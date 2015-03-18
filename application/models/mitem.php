@@ -176,7 +176,35 @@ class MItem extends CI_Model
 				$new_amount = $old_amount - $amount;
 				$inventory->$string = $new_amount;
 				$inventory->save();
+
+				if($new_amount == 0){
+					$string = "item_".$key."_id";
+					$inventory->$string = 0;
+					$inventory->save();
+
+					// replace everything
+					for($i = $key+1; $i <= 20; $i++){
+						// New string must become Old string;
+						$string_old_id = "item_".$i."_id";
+						$string_old_amount = "item_".$i."_amount";
+						
+						$string_new_id = "item_".($i-1)."_id";
+						$string_new_amount = "item_".($i-1)."_amount";
+
+						$inventory->$string_new_id = $inventory->$string_old_id;
+						$inventory->$string_new_amount = $inventory->$string_old_amount;
+
+						$inventory->$string_old_id = 0;
+						$inventory->$string_old_amount = 0;
+
+						$inventory->save();
+					}
+				}
+
+				return true;
 			}
 		}
+
+		return false;
 	}
 }

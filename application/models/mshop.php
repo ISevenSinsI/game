@@ -27,8 +27,8 @@ Class MShop extends CI_Model{
 
 	public function buy_item($shop_id, $player_id, $item_id, $amount){
 		$player = new Player($player_id);
-
 		$shop = new Shop($shop_id);
+
 		$item = $shop->item->where("id", $item_id)->include_join_fields()->get();
 		$price = $item->join_buy_price;
 
@@ -44,6 +44,35 @@ Class MShop extends CI_Model{
 			}
 		} else {
 			return "Not enough money.";
+		}
+	}
+
+	public function sell_item($shop_id, $player_id, $item_id, $amount){
+		$shop = new Shop($shop_id);
+
+		$item = $shop->item->where("id", $item_id)->include_join_fields()->get();
+		$price = $item->join_sell_price;
+
+		$total_price = $price * $amount;
+
+		//check if player has items in inventory
+		if($this->mitem->in_inventory($player_id, $item_id, $amount)){
+			//remove item from inventory 
+			if($this->mitem->delete_item_from_inventory($player_id, $item_id, $amount)){
+				// Give money
+				$player = new Player($player_id);
+				$old_currency = $player->currency;
+				$new_currency = $old_currency + $total_price;
+				
+				$player->currency = $new_currency;
+				$player->save();
+
+				return "You have sold " . $amount . " " . $item->name . ".";
+			} else {
+				return "Item/amount cannot be obtained from inventory.";
+			}
+		} else {
+			return "Item/amount not found in inventory.";
 		}
 	}
 }

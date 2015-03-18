@@ -59,7 +59,31 @@ $(document).ready(function(){
 
 			$(".wrapper").load("ajax/load_shop_view/" + shop_id);
 		});
-	})
+	});
+
+	$(".wrapper").on("click", ".shop_sell_button",function(){
+		shop_id = $(this).data("shop_id");
+		player_id = $(this).data("player_id");
+		item_id = $(this).data("item_sell_id");
+		amount = $("input[data-item_sell_id="+ item_id + "]").val();
+
+		$.post("ajax/sell_item",{
+			shop_id: shop_id,
+			item_id: item_id,
+			amount: amount,
+			player_id: player_id
+		},function(data){
+			response = jQuery.parseJSON(data);
+
+			reload_main_menu();
+			reload_right_menu();
+
+			$.post("ajax/set_shop_action",{action: response},function(data){});
+
+			$(".wrapper").load("ajax/load_shop_view/"+shop_id);
+		});
+	});
+
 });
 
 function go_to_location(player_id, location_from_id, location_to_id){
