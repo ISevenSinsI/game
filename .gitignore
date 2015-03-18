@@ -8,3 +8,4 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 application/views/content/vshop.php
+application/views/content/vshop.php
